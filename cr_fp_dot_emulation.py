@@ -25,7 +25,13 @@ def round_to_odd(v, p):
     # determining parity of r_up
     # if r_up can be expressed exactly on (p-1) bits it means
     # r_up's LSB is 0 => even mantissa
-    r_up_even = (r_up == sollya.round(v, p - 1, sollya.RU))
+    if p == sollya.binary64:
+        pm1 = 52
+    elif p == sollya.binary32:
+        pm1 == 23
+    else:
+        pm1 = p - 1
+    r_up_even = (r_up == sollya.round(v, pm1, sollya.RU))
     if r_up_even:
         return r_down
     else:
